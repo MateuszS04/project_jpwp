@@ -1,7 +1,7 @@
 package project.jpwp.controllers;
 
 import project.jpwp.RequireRole;
-import project.jpwp.User;
+import project.jpwp.users.User;
 
 import java.lang.reflect.Method;
 

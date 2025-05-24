@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,6 +23,8 @@ public class LoginController {
     private PasswordField passField;
     @FXML
     private Label error;
+    @FXML
+    private Button Register;
 
     private final DatabaseConnection db = new DatabaseConnection();
 
@@ -36,7 +39,7 @@ public class LoginController {
             db.close();
 
             if (normal_user != null) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/jpwp/views/login.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/jpwp/MainView.fxml"));
                 Parent root = fxmlLoader.load();
 
                 MainController controller = fxmlLoader.getController();
@@ -49,9 +52,22 @@ public class LoginController {
                 error.setText("Nieprawidłowy email lub hasło.");
                 error.setVisible(true);
             }
-
         } catch (SQLException | IOException e) {
             error.setText("Błąd logowania: " + e.getMessage());
+            error.setVisible(true);
+        }
+    }
+    @FXML
+    public void onRegisterClick(ActionEvent event) {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/jpwp/RegisterView.fxml"));
+            Parent root=fxmlLoader.load();
+            Stage stage=new Stage();
+            stage.setTitle("Formularz rejestracji");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch(IOException e){
+            error.setText("Błąd otiwerania: " + e.getMessage());
             error.setVisible(true);
         }
     }

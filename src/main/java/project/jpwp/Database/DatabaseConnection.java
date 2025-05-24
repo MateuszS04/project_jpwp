@@ -1,8 +1,9 @@
 package project.jpwp.Database;
 
 import project.jpwp.Role;
-import project.jpwp.admin.Admin;
+import project.jpwp.users.Admin;
 import project.jpwp.users.Normal_user;
+import project.jpwp.users.PasswordUtils;
 
 import java.sql.*;
 
@@ -12,6 +13,9 @@ public class DatabaseConnection {
 
     public void connect() throws SQLException {
         connection = DriverManager.getConnection(URL);
+        if(connection == null) {
+            throw new SQLException("Could not connect to the database");
+        }
     }
 
     public void close() throws SQLException {
@@ -21,39 +25,32 @@ public class DatabaseConnection {
     }
 
     public void addUser(String name, String email, String password, Role role) throws SQLException {
+        String hashedPassword = PasswordUtils.hashPassword(password);
         String sql = "INSERT INTO users(name, email, password, role) VALUES (?, ?, ?, ?)";
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, name);
             ps.setString(2, email);
-            ps.setString(3, password);
+            ps.setString(3, hashedPassword);
             ps.setString(4, role.name());
             ps.executeUpdate();
         }
     }
-
-    public void addAdmin(String loginName, String password, Role role) throws SQLException {
-        String sql = "INSERT INTO admins(loginName, password, role) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, loginName);
-            ps.setString(2, password);
-            ps.setString(3, role.name());
-            ps.executeUpdate();
-        }
-    }
     public Object login(String email, String password) throws SQLException {
+        String hashedPassword = PasswordUtils.hashPassword(password);
+
         String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
-            ps.setString(2, password);
+            ps.setString(2, hashedPassword);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int id = rs.getInt("id");
                     String name = rs.getString("name");
                     String role = rs.getString("role");
                     Role roleEnum = Role.valueOf(role.toUpperCase());
-
                     if (roleEnum == Role.ADMIN) {
-                        return new Admin(name, password, roleEnum);
+                        return new Admin(id,name,email,password,roleEnum);
                     } else {
                         return new Normal_user(id, name, email, password, roleEnum);
                     }
@@ -62,7 +59,4 @@ public class DatabaseConnection {
         }
         return null;
     }
-
-
-
 }

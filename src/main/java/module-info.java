@@ -11,7 +11,6 @@ module project.jpwp {
 
     opens project.jpwp to javafx.fxml;
     exports project.jpwp;
-//    opens project.jpwp to javafx.fxml;
     exports project.jpwp.controllers;
     opens project.jpwp.controllers to javafx.fxml;
 }
