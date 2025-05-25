@@ -6,6 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import project.jpwp.Database.DatabaseConnection;
 import project.jpwp.Role;
 
@@ -43,7 +44,11 @@ public class RegisterController {
             db.connect();
             db.addUser(name,email,password,roleEnum);
             db.close();
+            Stage stage = (Stage) nameField.getScene().getWindow();
+            stage.close();
         } catch (SQLException e) {
+            errorLabel.setText(e.getMessage());
+            errorLabel.setVisible(true);
             throw new RuntimeException(e);
         }
     }

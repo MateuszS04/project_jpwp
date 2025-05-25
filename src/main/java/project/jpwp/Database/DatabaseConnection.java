@@ -60,4 +60,23 @@ public class DatabaseConnection {
         }
         return null;
     }
+
+    public void deleteUser(int id) throws SQLException {
+        String sql1="Select * from users where id = ?";
+        String sql2 = "DELETE FROM users WHERE id = ?";
+
+        try (PreparedStatement ps1 = connection.prepareStatement(sql1)) {
+            ps1.setInt(1, id);
+            try (ResultSet rs = ps1.executeQuery()) {
+                if (rs.next()) {
+                    try (PreparedStatement ps2 = connection.prepareStatement(sql2)) {
+                        ps2.setInt(1, id);
+                        ps2.executeUpdate();
+                    }
+                }else {
+                    throw new SQLException("User not found");
+                }
+            }
+        }
+    }
 }
