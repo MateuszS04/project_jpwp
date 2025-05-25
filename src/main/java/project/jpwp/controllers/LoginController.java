@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import project.jpwp.Database.DatabaseConnection;
 import project.jpwp.users.Normal_user;
+import project.jpwp.users.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,15 +36,15 @@ public class LoginController {
 
         try {
             db.connect();
-            Normal_user normal_user = (Normal_user) db.login(email, password);
+            User user=db.login(email, password);
             db.close();
 
-            if (normal_user != null) {
+            if (user !=null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/jpwp/MainView.fxml"));
                 Parent root = fxmlLoader.load();
 
                 MainController controller = fxmlLoader.getController();
-                controller.setUser(normal_user);
+                controller.setUser(user);
 
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(new Scene(root));

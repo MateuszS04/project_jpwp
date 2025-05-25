@@ -4,6 +4,7 @@ import project.jpwp.Role;
 import project.jpwp.users.Admin;
 import project.jpwp.users.Normal_user;
 import project.jpwp.users.PasswordUtils;
+import project.jpwp.users.User;
 
 import java.sql.*;
 
@@ -36,7 +37,7 @@ public class DatabaseConnection {
             ps.executeUpdate();
         }
     }
-    public Object login(String email, String password) throws SQLException {
+    public User login(String email, String password) throws SQLException {
         String hashedPassword = PasswordUtils.hashPassword(password);
 
         String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
