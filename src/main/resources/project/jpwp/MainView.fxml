@@ -12,7 +12,7 @@
             <Insets top="20" left="20" right="20" bottom="20"/>
         </padding>
 
-        <Button fx:id="adminButton" text="Panel Admina" />
+        <Button fx:id="adminButton" text="Panel Admina" onAction="#onAdminButtonClick" />
         <Button fx:id="userButton" text="Panel Użytkownika" />
 
         <HBox spacing="10">

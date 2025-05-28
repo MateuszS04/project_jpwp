@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="400" prefWidth="300" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.jpwp.controllers.UsersListViewController">
+
+    <Label fx:id="errorLabel" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Lista użytkowników" />
+
+    <ListView fx:id="userListView" prefHeight="300" prefWidth="280" />
+
+    <Label fx:id="messageLabel" textFill="red" />
+   <Button fx:id="LoadUsers" mnemonicParsing="false" text="Load users" onAction="#onButtonLoadUsers" />
+
+</VBox>

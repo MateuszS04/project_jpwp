@@ -7,6 +7,8 @@ import project.jpwp.users.PasswordUtils;
 import project.jpwp.users.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseConnection {
     private static final String URL = "jdbc:sqlite:identifier.sqlite";
@@ -78,5 +80,27 @@ public class DatabaseConnection {
                 }
             }
         }
+    }
+    public List<User> userList() throws SQLException {
+        List<User> users=new ArrayList<>();
+        String sql = "SELECT * FROM users";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String role = rs.getString("role");
+                    Role roleEnum = Role.valueOf(role.toUpperCase());
+                    if (roleEnum == Role.ADMIN) {
+                        users.add(new Admin(id,name,email,password,roleEnum));
+                    }else{
+                        users.add(new Normal_user(id,name,email,password,roleEnum));
+                    }
+                }
+            }
+        }
+        return users;
     }
 }
