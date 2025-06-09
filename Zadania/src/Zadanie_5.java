@@ -1,6 +1,14 @@
-//// TODO: Zdefiniuj dwie adnotacje:
-//// @Endpoint(path = "...") – ścieżka endpointa
-//// @RequiresRole("...") – wymagana rola użytkownika
+//import java.lang.annotation.*;
+//import java.lang.reflect.*;
+//
+//@Retention(RetentionPolicy.RUNTIME)
+//@Target(ElementType.METHOD)
+//-------------
+//// TODO: Zdefiniuj adnotację @RequiresRole
+//@Retention(RetentionPolicy.RUNTIME)
+//@Target(ElementType.METHOD)
+//------------
+//// TODO: Zdefiniuj adnotację @ResourceType
 //
 //class User {
 //    String name;
@@ -11,36 +19,57 @@
 //    }
 //}
 //
-//class ApiService {
+//interface SecuredResource {
+//    void access(User user);
+//}
 //
-//    @Endpoint(path = "getData")
-//    @RequiresRole("USER")
-//    public void getData() {
-//        System.out.println("Data retrieved.");
+//interface DescribedResource {
+//    void describe();
+//}
+//
+//class DocumentResource implements SecuredResource, DescribedResource {
+//
+//    @RequiresRole("EDITOR")
+//    public void access(User user) {
+//        System.out.println(user.name + " accessed the document.");
 //    }
 //
-//    @Endpoint(path = "deleteData")
-//    @RequiresRole("ADMIN")
-//    public void deleteData() {
-//        System.out.println("Data deleted.");
+//    @ResourceType("DOCUMENT")
+//    public void describe() {
+//        System.out.println("This is a document resource.");
 //    }
 //}
 //
 //public class Zadanie_5 {
-//    public static void route(User user, String path) throws Exception {
-//        ApiService api = new ApiService();
-//
-//        // TODO: Użyj refleksji, aby:
-//        // - Znaleźć metodę z pasującą ścieżką @Endpoint
-//        // - Sprawdzić @RequiresRole i porównać z rolą użytkownika
-//        // - Jeśli wszystko się zgadza, wywołać metodę
-//        // - W przeciwnym razie wypisać odpowiedni komunikat
-//    }
-//
 //    public static void main(String[] args) throws Exception {
-//        User user = new User("Ania", "USER");
+//        User user = new User("Jan", "EDITOR");
 //
-//        route(user, "getData");    // powinno działać
-//        route(user, "deleteData"); // powinno być zabronione
+//        DocumentResource resource = new DocumentResource();
+//
+//        Method accessMethod = DocumentResource.class.getMethod("access", User.class);
+//        Method describeMethod = DocumentResource.class.getMethod("describe");
+//
+//        //  Odczytaj adnotacje RequiresRole i ResourceType
+//        //  Sprawdź, czy użytkownik ma odpowiednią rolę
+//        // Jeśli tak – wywołaj metodę access()
+//        // Dodatkowo wypisz typ zasobu z describe()
+//
+//        // TODO: Poniżej zaimplementuj sprawdzenie typu zasobów
+//        if(----------------------){
+//            -------------------------------------;
+//            System.out.println(rt.value());
+//        }
+//        // TODO: Poniżej sprawdź rolę użytkownika i porównaj ją z wymaganą rolą
+//        if(-------------------------------){
+//            -------------------------------;
+//            String role = rr.value();
+//
+//            if(-----------------)){
+//                --------------------;
+//            }else{
+//                System.out.println("Access denied"+user.name);
+//            }
+//        }
+//
 //    }
 //}

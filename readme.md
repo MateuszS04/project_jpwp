@@ -14,7 +14,6 @@ Zadania są uporządkowane od najprostszych do bardziej złożonych.
 ## 📚 Zadania
 
 ### 🟢 Zadanie 1: Prosta własna adnotacja
-**Poziom**: Łatwy
 **Cel**: Zdefiniuj własną adnotację `@Info` i zastosuj ją do klasy.
 
 **Polecenie**:
@@ -25,7 +24,6 @@ Zadania są uporządkowane od najprostszych do bardziej złożonych.
 ---
 
 ### 🟡 Zadanie 2: Wyszukiwanie metod z adnotacją
-**Poziom**: Łatwy–Średni   
 **Cel**: Użyj refleksji do wykrywania metod oznaczonych `@TestMethod`.
 
 **Polecenie**:
@@ -36,7 +34,6 @@ Zadania są uporządkowane od najprostszych do bardziej złożonych.
 ---
 
 ### 🟠 Zadanie 3: Automatyczne wywołanie oznaczonych metod
-**Poziom**: Średni   
 **Cel**: Refleksyjnie uruchamiaj metody oznaczone adnotacją `@AutoRun`.
 
 **Polecenie**:
@@ -46,7 +43,6 @@ Zadania są uporządkowane od najprostszych do bardziej złożonych.
 ---
 
 ### 🔵 Zadanie 4: Prosty system ról z adnotacjami
-**Poziom**: Średni–Trudny
 **Cel**: Wprowadź system kontroli dostępu za pomocą adnotacji.
 
 **Polecenie**:
@@ -54,31 +50,16 @@ Zadania są uporządkowane od najprostszych do bardziej złożonych.
 - Stwórz klasę `User` z nazwą i rolą.
 - Oznacz metody w klasie `SecureService` wymaganymi rolami.
 - W `main` sprawdź, czy użytkownik ma dostęp do metody i ją wywołaj (lub odrzuć dostęp).
-
 ---
-
-### 🔴 Zadanie 5: Dynamiczny router API z kontrolą dostępu
-**Poziom**: Trudny   
-**Cel**: Stwórz router API, który na podstawie adnotacji i roli użytkownika znajduje i uruchamia metodę.
+### 🔴 Zadanie 5 System zasobów i ról z użyciem dwóch adnotacji 
+**Cel**: Zastosuj adnotację do oznaczenia metod oraz prosty sytem uprawnień użytkownika i typu
+zasobów
 
 **Polecenie**:
-- Zdefiniuj dwie adnotacje:
-    - `@Endpoint(path = "...")` – określa nazwę ścieżki.
-    - `@RequiresRole("ROLA")` – określa wymaganą rolę użytkownika.
-- Stwórz klasę `ApiService` z kilkoma metodami oznaczonymi tymi adnotacjami.
-- W klasie `ApiRouter`:
-    - Znajdź metodę pasującą do ścieżki.
-    - Sprawdź, czy użytkownik ma odpowiednią rolę.
-    - Jeśli tak – wywołaj metodę. W przeciwnym razie wypisz komunikat o błędzie.
-
----
-
-## ✅ Cele edukacyjne
-- Rozumienie, czym są i jak działają adnotacje w Javie
-- Praktyczne zastosowanie refleksji
-- Wstęp do metaprogramowania
-- Implementacja prostych systemów bezpieczeństwa
-
----
-
-## 📁 Struktura katalogów
+- Zdefiniuj dwie adnotacje `@ReguiresRole(String role)` i `@ResourceType(String type)`.
+- Stwórz dwa interfejsy `SecuredResource` z metodą `access(User user)` i `DescribedResource` z metodą `describe()`.
+- Zaimplementuj klasę `DocumentResource`, która implementuje oba interfejsy.
+  Oznacz jej metody odpowiednimi adnotacjami.
+- W klasie `ResourceAccessManager` Użyj refleksji, by odczytać:
+- Wymaganą rolę z metody `access`.
+- Typ zasobu z metody `describe`.
